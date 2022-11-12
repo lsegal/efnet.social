@@ -17,12 +17,30 @@ server {
   listen 80;
   listen [::]:80;
   server_name ${LOCAL_DOMAIN} ${NGINX_ALTERNATE_DOMAINS};
+  root /public;
+  location / { return 301 https://$host$request_uri; }
+}
+
+server {
+  listen 443 ssl http2;
+  listen [::]:443 ssl http2;
+  server_name ${LOCAL_DOMAIN} ${NGINX_ALTERNATE_DOMAINS};
+
+  ssl_protocols TLSv1.2 TLSv1.3;
+  ssl_ciphers HIGH:!MEDIUM:!LOW:!aNULL:!NULL:!SHA;
+  ssl_prefer_server_ciphers on;
+  ssl_session_cache shared:SSL:10m;
+  ssl_session_tickets off;
+
+  # Uncomment these lines once you acquire a certificate:
+  ssl_certificate     /etc/nginx/certs/selfsigned-cert.pem;
+  ssl_certificate_key /etc/nginx/certs/selfsigned-priv.pem;
 
   keepalive_timeout    70;
   sendfile             on;
   client_max_body_size 80m;
 
-  root /www-data;
+  root /public;
 
   gzip on;
   gzip_disable "msie6";

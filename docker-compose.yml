@@ -66,10 +66,12 @@ services:
     env_file: .env.production
     volumes:
       - ./conf/nginx-templates:/etc/nginx/templates:ro
+      - ./conf/certs:/etc/nginx/certs:ro
       - ./data/system:/www-data/system:ro
       - www-cache:/var/cache/nginx
     ports:
       - "0.0.0.0:80:80"
+      - "0.0.0.0:443:443"
     depends_on:
       - web
       - streaming
