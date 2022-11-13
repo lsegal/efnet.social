@@ -13,10 +13,12 @@ You can fork this repository and use it as a template for your own.
 ## Setup & Deploy
 
 1. Clone this repository: `git clone https://github.com/lsegal/efnet.social`
-2. Copy `.env.production.sample` to `.env.production` and add your secrets.
+2. Run `sh scripts/setup.sh` to initialize `.env.production` from the
+   `.env.production.sample` template file with configuration. This will also
+   set up your database and initial certificates.
+3. Continue editing `.env.production` and add your remaining secrets & settings.
    See the [Mastodon documentation](https://docs.joinmastodon.org/admin/config/)
    for available environment options.
-3. Run `sh scripts/setup.sh` to initialize the configuration and database.
 4. Optional: if you are using your own certificates, you will need to replace
    the files generated into `conf/certs`. See below for more information.
 5. Finally, run `docker-compose up -d` to start the server.
