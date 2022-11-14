@@ -8,9 +8,7 @@ services:
       test: ["CMD", "pg_isready", "-U", "postgres"]
     volumes:
       - ./data/db:/var/lib/postgresql/data
-    environment:
-      POSTGRES_PASSWORD: db
-      POSTGRES_USER: db
+    env_file: .env.defaults
 
   redis:
     restart: always
@@ -23,7 +21,9 @@ services:
   web:
     image: tootsuite/mastodon:v3.5.3
     restart: always
-    env_file: .env.production
+    env_file:
+      - .env.defaults
+      - .env.production
     command: bash -c "rm -f /mastodon/tmp/pids/server.pid; bundle exec rails s -p 3000"
     healthcheck:
       # prettier-ignore
@@ -38,7 +38,9 @@ services:
   streaming:
     image: tootsuite/mastodon:v3.5.3
     restart: always
-    env_file: .env.production
+    env_file:
+      - .env.defaults
+      - .env.production
     command: node ./streaming
     healthcheck:
       # prettier-ignore
@@ -50,7 +52,9 @@ services:
   sidekiq:
     image: tootsuite/mastodon:v3.5.3
     restart: always
-    env_file: .env.production
+    env_file:
+      - .env.defaults
+      - .env.production
     command: bundle exec sidekiq
     depends_on:
       - db
@@ -63,7 +67,9 @@ services:
   nginx:
     image: nginx:alpine
     restart: always
-    env_file: .env.production
+    env_file:
+      - .env.defaults
+      - .env.production
     volumes:
       - ./conf/nginx-templates:/etc/nginx/templates:ro
       - ./conf/certs:/etc/nginx/certs:ro
