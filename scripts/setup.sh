@@ -13,7 +13,7 @@ fi
 
 if [ ! -f conf/certs/selfsigned-priv.pem ]; then
   echo "Generating self-signed SSL certificate..."
-  openssl req -x509 -nodes -days 9999 -newkey rsa:2048 -keyout conf/certs/selfsigned-priv.pem -out conf/certs/selfsigned-cert.pem &>/dev/null
+  yes '' | openssl req -x509 -nodes -days 9999 -newkey rsa:2048 -keyout conf/certs/selfsigned-priv.pem -out conf/certs/selfsigned-cert.pem &>/dev/null
 fi
 
 if [ ! -d data/db ]; then
