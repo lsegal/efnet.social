@@ -31,7 +31,7 @@ services:
     depends_on:
       - db
       - redis
-      - elasticache
+      - elasticsearch
     volumes:
       - ./data/system:/mastodon/public/system
 
@@ -76,7 +76,7 @@ services:
       - web
       - streaming
 
-  elasticache:
+  elasticsearch:
     restart: always
     image: docker.elastic.co/elasticsearch/elasticsearch:7.17.4
     environment:
@@ -88,7 +88,7 @@ services:
       # prettier-ignore
       test: ["CMD-SHELL", "curl --silent --fail localhost:9200/_cluster/health || exit 1"]
     volumes:
-      - elasticache:/usr/share/elasticsearch/data
+      - elasticsearch:/usr/share/elasticsearch/data
     ulimits:
       memlock:
         soft: -1
@@ -96,5 +96,5 @@ services:
 
 volumes:
   www-cache:
-  elasticache:
+  elasticsearch:
   redis:
