@@ -19,7 +19,7 @@ services:
       - redis:/data
 
   web:
-    image: tootsuite/mastodon:v3.5.3
+    image: tootsuite/mastodon:v3.5.5
     restart: always
     env_file:
       - .env.defaults
@@ -36,7 +36,7 @@ services:
       - ./data/system:/mastodon/public/system
 
   streaming:
-    image: tootsuite/mastodon:v3.5.3
+    image: tootsuite/mastodon:v3.5.5
     restart: always
     env_file:
       - .env.defaults
@@ -50,7 +50,7 @@ services:
       - redis
 
   sidekiq:
-    image: tootsuite/mastodon:v3.5.3
+    image: tootsuite/mastodon:v3.5.5
     restart: always
     env_file:
       - .env.defaults
